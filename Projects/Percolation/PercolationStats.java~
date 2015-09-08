@@ -1,0 +1,46 @@
+public class PercolationStats{
+    
+    private int num_of_experim;
+    private int[] outcomes;
+    
+    public Percolation(int N, int T){
+        num_of_experim = T;
+        outcomes = new int[T];
+        Percolation grid = new Percolation(N);
+        for (int i = 0; i < T; i++)
+            while (!grid.percolates()){
+                int x = StdRandom.uniform(N)+1;
+                int y = StdRandom.uniform(N)+1;
+                if (!grid.isOpen(x,y)){
+                    grid.open(x,y);
+                    outcomes[i]++;
+                }
+            }
+    }
+    
+    public double mean() {
+        return StdStats.mean(outcomes);
+    }
+    
+    public double stddev() {
+        return StdStats.stddev(outcomes);
+    }
+    
+    public double confidenceLo(){
+        return this.mean() - 1.96 * this.stddev() / Math.sqrt(num_of_experim);
+    }
+    
+    public double confidenceHi(){
+        return this.mean() + 1.96 * this.stddev() / Math.sqrt(num_of_experim);
+    }
+    
+    public static void main(String[] args){
+        System.out.println("Input size of grid:");
+        int N = In.readInt();
+        System.out.println("Input number of experiments:");
+        int T = In.readInt();
+        PercolationStats percstats = new PercolationStats(N, T);
+        System.out.println("mean = " + percstats.mean());
+        System.out.println("stddev = " + percstats.stddev());
+    }
+}
