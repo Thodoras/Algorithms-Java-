@@ -1,13 +1,13 @@
 public class PercolationStats{
     
     private int num_of_experim;
-    private int[] outcomes;
+    private double[] outcomes;
     
-    public Percolation(int N, int T){
+    public PercolationStats(int N, int T){
         num_of_experim = T;
-        outcomes = new int[T];
-        Percolation grid = new Percolation(N);
-        for (int i = 0; i < T; i++)
+        outcomes = new double[T];
+        for (int i = 0; i < T; i++){
+            Percolation grid = new Percolation(N);
             while (!grid.percolates()){
                 int x = StdRandom.uniform(N)+1;
                 int y = StdRandom.uniform(N)+1;
@@ -16,6 +16,8 @@ public class PercolationStats{
                     outcomes[i]++;
                 }
             }
+            outcomes[i] /= N*N;
+        }
     }
     
     public double mean() {
@@ -35,12 +37,14 @@ public class PercolationStats{
     }
     
     public static void main(String[] args){
+        In in = new In();
         System.out.println("Input size of grid:");
-        int N = In.readInt();
+        int N = in.readInt();
         System.out.println("Input number of experiments:");
-        int T = In.readInt();
+        int T = in.readInt();
         PercolationStats percstats = new PercolationStats(N, T);
         System.out.println("mean = " + percstats.mean());
         System.out.println("stddev = " + percstats.stddev());
+        System.out.println("95% confidence interval = [" + percstats.confidenceLo() + ", " + percstats.confidenceHi() + "]" );
     }
 }
