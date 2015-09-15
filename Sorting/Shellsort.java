@@ -26,10 +26,4 @@ public class Shellsort {
 	private static boolean less(Comparable x, Comparable y) {
 		return x.compareTo(y) < 0;
 	}
-
-	private static void exch(Comparable[] array, int i, int j) {
-		Comparable swap = array[i];
-		array[i] = array[j];
-		array[j] = swap;
-	}
 }
