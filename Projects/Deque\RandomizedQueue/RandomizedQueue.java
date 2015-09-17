@@ -4,6 +4,7 @@ import java.util.NoSuchElementException;
 import java.lang.UnsupportedOperationException;
 
 public class RandomizedQueue<Item> implements Iterable<Item> {
+    // Data structure which enques and dequeues in random order.
     
     private Item[] array;
     private int size;
