@@ -1,4 +1,5 @@
 // A class that computes all the connected components of a given graph.
+// Dependencies: Graph.java API.
 
 public class GraphCC {
 
@@ -7,7 +8,21 @@ public class GraphCC {
 	private int count;
 
 	public GraphCC(Graph g) {
-		// Constructor.
+		// Constructor for undirected graphs.
+
+		marked = new boolean[g.V()];
+		id = new int[g.V()];
+		count = 0;
+		for (int i = 0; i < g.V(); i++) {
+			if (!marked[i]) {
+				dfs(g, i);
+				count++;
+			}
+		}
+	}
+
+	public GraphCC(DiGraph g) {
+		// Constructor for directed graphs.
 
 		marked = new boolean[g.V()];
 		id = new int[g.V()];
