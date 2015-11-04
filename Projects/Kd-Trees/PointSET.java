@@ -1,7 +1,5 @@
-import edu.princeton.cs.algs4.Point2D;
-import edu.princeton.cs.algs4.RectHV;
-import edu.princeton.cs.algs4.Queue;
-import edu.princeton.cs.algs4.SET;
+// A brute force data type PointSET.java that represents a set of points in the unit square. 
+// Implement using a red-black BST.
 
 public class PointSET {
 

@@ -5,7 +5,7 @@ public class BinarySearch {
 		//Returns the position of a certain existing value, or else -1.
 
 		int low = 0;
-		int high = array.length - 1;
+		int high = array.length;
 		while (low <= high){
 			int mid = low + (high - low)/2;
 			if (value < array[mid])

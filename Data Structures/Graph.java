@@ -9,6 +9,8 @@ public class Graph {
 	private int edges;
 
 	public Graph(int V) {
+		// Constructor.
+
 		this.V = V;
 		edges = 0;
 		adj = (LinkedList<Integer>[]) new LinkedList[V];
@@ -18,20 +20,28 @@ public class Graph {
 	}
 
 	public void addEdge(int v, int w) {
+		// Add an edge from v to w.
+
 		adj[v].add(w);
 		adj[w].add(v);
 		edges++;
 	}
 
 	public int V() {
+		// Return number of vertices.
+
 		return V;
 	}
 
 	public int E() {
+		// Return number of edges.
+
 		return edges;
 	}
 
 	public String toString() {
+		// Return a string representaton of the graph.
+
 		String retstr = "";
 		for (int i = 0; i < V ; i++) {
 			retstr += i + " -> ";
@@ -44,12 +54,8 @@ public class Graph {
 	}
 
 	public Iterable<Integer> adj(int v) {
-		return adj[v];
-	}
+		// Return an iterator of all the adjacent vertices of a given vertex. 
 
-	public static void main(String[] args) {
-		Graph g = new Graph(6);
-		g.addEdge(1,0);
-		System.out.println(g.E());
+		return adj[v];
 	}
 }
