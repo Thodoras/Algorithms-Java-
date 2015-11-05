@@ -1,5 +1,5 @@
 // Return an array of all the vertices of a graph that holds their shortest distance from a starting vertex s
-// in O(n + m). 
+// where all the edges have the unit length in O(n + m). U stands for unit. 
 
 import java.util.*;
 
