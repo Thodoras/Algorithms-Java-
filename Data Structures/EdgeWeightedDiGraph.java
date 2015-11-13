@@ -1,16 +1,16 @@
-// A simple undirected weighted graph data structure API.
+// A simple directed weighted graph data structure API.
 // Dependencies: Edge API.
 
 import java.util.*;
 
-public class EdgeWeightedGraph {
+public class EdgeWeightedDiGraph {
 
 	private final int V;
 	private LinkedList<Integer>[] adjVertices;
 	private LinkedList<Edge>[] adjEdges;
 	private int edges;
 
-	public EdgeWeightedGraph(int V) {
+	public EdgeWeightedDiGraph(int V) {
 		// Constructor.
 
 		this.V = V;
@@ -30,9 +30,7 @@ public class EdgeWeightedGraph {
 		int v1 = edge.getFirstV();
 		int v2 = edge.getOtherV(v1);
 		adjVertices[v1].add(v2);
-		adjVertices[v2].add(v1);
 		adjEdges[v1].add(edge);
-		adjEdges[v2].add(edge);
 	}
 
 	public int V() {
@@ -88,7 +86,7 @@ public class EdgeWeightedGraph {
 	}
 
 	public Iterable<Edge> adjEdges(int v) {
-		// Return an iterator of all the adjacent edges of a given vertex.
+		// Return an iterator of all the adjacent edges starting from a given vertex.
 
 		return adjEdges[v];
 	}
