@@ -6,7 +6,8 @@ public class Edge implements Comparable<Edge> {
 	private final double weight;
 
 	public Edge(int vertex1, int vertex2) {
-		// Constructor with default weight 1.
+		// Constructor with default weight 1. Order of the argument matters if the graph
+		// client is directed.
 
 		this.vertex1 = vertex1;
 		this.vertex2 = vertex2;
@@ -21,13 +22,13 @@ public class Edge implements Comparable<Edge> {
 		this.weight = weight;
 	}
 
-	public int getVertex() {
-		// Returns one of two vertices of the edge.
+	public int getFirstV() {
+		// Returns the first one of the two vertices of the edge.
 
 		return vertex1;
 	}
 
-	public int getOther(int vertex) {
+	public int getOtherV(int vertex) {
 		// Returns the opossite vertex of the one inserted in the edge.
 
 		if (vertex == vertex1) {
@@ -56,5 +57,9 @@ public class Edge implements Comparable<Edge> {
 		else {
 			return 0;
 		}
+	}
+
+	public String toString() {
+		return String.format("(%d, %d)(%f)", vertex1, vertex2, weight);
 	}
 }
