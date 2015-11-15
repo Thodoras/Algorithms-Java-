@@ -8,15 +8,17 @@ public class EdgeWeightedGraph {
 	private final int V;
 	private LinkedList<Integer>[] adjVertices;
 	private LinkedList<Edge>[] adjEdges;
-	private int edges;
+	private LinkedList<Edge> edges;
+	private int numEdges;
 
 	public EdgeWeightedGraph(int V) {
 		// Constructor.
 
 		this.V = V;
-		edges = 0;
+		numEdges = 0;
 		adjVertices = (LinkedList<Integer>[]) new LinkedList[V];
 		adjEdges = (LinkedList<Edge>[]) new LinkedList[V];
+		edges = new LinkedList<Edge>(); 
 		for (int i = 0; i < V; i++) {
 			adjVertices[i] = new LinkedList<Integer>();
 			adjEdges[i] = new LinkedList<Edge>();
@@ -26,13 +28,14 @@ public class EdgeWeightedGraph {
 	public void addEdge(Edge edge) {
 		// Add an edge from v to w.
 
-		edges++;
+		numEdges++;
 		int v1 = edge.getFirstV();
 		int v2 = edge.getOtherV(v1);
 		adjVertices[v1].add(v2);
 		adjVertices[v2].add(v1);
 		adjEdges[v1].add(edge);
 		adjEdges[v2].add(edge);
+		edges.add(edge);
 	}
 
 	public int V() {
@@ -44,7 +47,7 @@ public class EdgeWeightedGraph {
 	public int E() {
 		// Return number of edges.
 
-		return edges;
+		return numEdges;
 	}
 
 	public double getWeight(Edge edge) {
@@ -88,8 +91,14 @@ public class EdgeWeightedGraph {
 	}
 
 	public Iterable<Edge> adjEdges(int v) {
-		// Return an iterator of all the adjacent edges of a given vertex.
+		// Return an iterator of all the adjacent edges starting from a given vertex.
 
 		return adjEdges[v];
+	}
+
+	public Iterable<Edge> edges() {
+		// Return an iterator of the edges.
+
+		return edges;
 	}
 }
