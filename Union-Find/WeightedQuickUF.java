@@ -1,11 +1,11 @@
-public class WeightedQuickUnionUF{
+public class WeightedQuickUF{
 	// Union - find algorith that uses extra space propotional to the graphs neumber
 	// of nodes but keeps union and find at O(logN).
 
 	int[] id;
 	int[] sz;
 
-	public WeightedQuickUnionUF(int num_nodes) {
+	public WeightedQuickUF(int num_nodes) {
 		id = new int[num_nodes];
 		sz = new int[num_nodes];
 		for (int i = 0; i < num_nodes; i++){
