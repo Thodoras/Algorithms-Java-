@@ -26,18 +26,4 @@ public class KruskalMST {
 		}
 		return tree;
 	}
-
-	public static void main(String[] args) {
-		Edge e1 = new Edge(0,1,3);
-		Edge e2 = new Edge(0,2,1);
-		Edge e3 = new Edge(1,3,2);
-		Edge e4 = new Edge(2,3,4);
-		EdgeWeightedGraph g = new EdgeWeightedGraph(4);
-		g.addEdge(e1);
-		g.addEdge(e2);
-		g.addEdge(e3);
-		g.addEdge(e4);
-		EdgeWeightedGraph h = KruskalMST.MST(g);
-		System.out.println(h.toStringVertices());
-	}
 }
