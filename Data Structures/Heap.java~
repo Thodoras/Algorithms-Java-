@@ -73,7 +73,7 @@ public class Heap<Key extends Comparable<Key>> {
 			int min = minIndex(2*pos -1, 2*pos);
 			if (less(array[min], array[pos - 1])) {
 				exch(min, pos - 1);
-				pos = min + 1;
+				pos *= min + 1;
 			}
 			else {
 				break;
