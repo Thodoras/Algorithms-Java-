@@ -1,16 +1,20 @@
+// Heap data structure that supports insertion (O(logN)), deletion of minimum (O(logN)).
+
 public class Heap<Key extends Comparable<Key>> {
-	// Heap data structure that supports insertion (O(logN)), deletion of minimum (O(logN)),
-	// and heapsort (O(NlogN), deterministic, stable).
 
 	private int size;
 	private Key[] array;
 
 	public Heap() {
+		// Constructor for an empty heap.
+
 		size = 0;
 		array = (Key[]) new Comparable[1];
 	}
 
 	public Heap(Key[] keys) {
+		// Constructor that takes an array of keys and heapsorts it.
+
 		size = keys.length;
 		int length = convSize(size);
 		array = (Key[]) new Comparable[length];
@@ -20,25 +24,30 @@ public class Heap<Key extends Comparable<Key>> {
 		heapsort();
 	}
 
-	public void heapsort() {
-		int temp = size / 2 - 1;
-		for (int i = temp; i >= 0; i--) {
-			sink(i);
-		}
-	}
-
 	public boolean isEmpty() {
+		// Returns true iff heap is empty.
+
 		return size == 0;
 	}
 
 	public void insert(Key key) {
+		// Inserts a key in the heap.
+
 		array[size++] = key;
 		if (size == array.length)
 			resize(2*array.length);
 		swim();
 	}
 
+	public Key peek() {
+		// Returns minimum key without removing it.
+
+		return keys[0];
+	}
+
 	public Key removeMin() {
+		// Returns and removes the minimum key.
+
 		Key value = array[0];
 		exch(0, size - 1);
 		array[--size] = null;
@@ -50,8 +59,17 @@ public class Heap<Key extends Comparable<Key>> {
 	}
 
 	public void print() {
+		// Prints all the keys of the heap ordered by height.
+
 		for (int i = 0; i < size; i++)
 			System.out.println(array[i]);
+	}
+
+	private void heapsort() {
+		int temp = size / 2 - 1;
+		for (int i = temp; i >= 0; i--) {
+			sink(i);
+		}
 	}
 
 	private void swim() {
