@@ -1,4 +1,4 @@
-public class HeapKV<Key extends Comparable<Key>, Value> {
+public class HeapKV<Key, Value extends Comparable<Value>> {
 
 	private int size;
 	private Key[] keys;
@@ -20,7 +20,7 @@ public class HeapKV<Key extends Comparable<Key>, Value> {
 
 	public void insert(Key key, Value value) {
 		// Inserts a key in the heap.
-		
+
 		keys[size] = key;
 		values[size] = value;
 		size++;
@@ -29,16 +29,16 @@ public class HeapKV<Key extends Comparable<Key>, Value> {
 		swim();
 	}
 
-	public Value peek() {
-		// Returns value with minimum key without removing it.
+	public Key peek() {
+		// Returns key with minimum value without removing it.
 
-		return values[0];
+		return keys[0];
 	}
 
-	public Value removeMin() {
-		// Returns and removes the value of the minimum key.
+	public Key removeMin() {
+		// Returns and removes the key with the minimum value.
 
-		Value value = values[0];
+		Key key = keys[0];
 		exch(0, size - 1);
 		--size;
 		keys[size] = null;
@@ -47,10 +47,12 @@ public class HeapKV<Key extends Comparable<Key>, Value> {
 			resize(keys.length/2);
 		}
 		sink(0);
-		return value;
+		return key;
 	}
 
 	public void print() {
+		// Print the heap elements in order of height.
+		
 		for (int i = 0; i < size; i++) {
 			System.out.print(keys[i]);
 			System.out.print(" ");
@@ -61,7 +63,7 @@ public class HeapKV<Key extends Comparable<Key>, Value> {
 	private void swim() {
 		int temp = size;
 		while (temp > 1) {
-			if (less(keys[temp-1], keys[temp/2 - 1])) {
+			if (less(values[temp-1], values[temp/2 - 1])) {
 				exch(temp-1, temp/2 - 1);
 				temp /= 2;
 			}
@@ -75,7 +77,7 @@ public class HeapKV<Key extends Comparable<Key>, Value> {
 		pos += 1;
 		while (2 * pos <= size) {
 			int min = minIndex(2*pos -1, 2*pos);
-			if (less(keys[min], keys[pos - 1])) {
+			if (less(values[min], values[pos - 1])) {
 				exch(min, pos - 1);
 				pos = min + 1;
 			}
@@ -88,7 +90,7 @@ public class HeapKV<Key extends Comparable<Key>, Value> {
 	private int minIndex(int i, int j) {
 		if (i == size) {return j;}
 		if (j == size) {return i;}
-		if (less(keys[j], keys[i]))
+		if (less(values[j], values[i]))
 			return j;
 		else 
 			return i;
@@ -103,7 +105,7 @@ public class HeapKV<Key extends Comparable<Key>, Value> {
 		values[j] = vswap;
 	}
 
-	private boolean less(Key x, Key y) {
+	private boolean less(Value x, Value y) {
 		return x.compareTo(y) < 0;
 	}
 
@@ -116,5 +118,5 @@ public class HeapKV<Key extends Comparable<Key>, Value> {
         }
         keys = ktemp;
         values = vtemp;
-    }	
+    }
 }
