@@ -1,34 +1,61 @@
-// To be continued...
+// Heap like data structure that makes a copy of an array to be heapsorted.
+// It gives the option to alterate any values in the heap in constant time.
+// This is a custom data structure suitale for Dijkstra's algorithm.
+// Warning: If a value is altered, probably the heap won't be heapsorted anymore.
+// Therefore after the completion of the alterations heapsort is advised.
 
 public class GreedyHeap<Key extends Comparable<Key>> {
 
-	private Key[] array;
-	private Key[] clone;
 	private Key[] heap;
 	private int[] indices;
 	private int size;
+	private int firstSize;
 
 	public GreedyHeap(Key[] array) {
-		this.array = array;
+		// Constructor, takes an array of keys as an argument.
+
 		size = array.length;
-		clone = (Key[]) new Comparable[size];
+		firstSize = size;
 		heap = (Key[]) new Comparable[size];
 		indices = new int[size];
 		for (int i = 0; i < size; i++) {
-			clone[i] = array[i];
 			heap[i] = array[i];
 			indices[i] = i;
 		}
 		heapSort();
 	}
 
+	public void updateKey(int pos, Key key) {
+		// Update a position of the input array with a given key. It updates
+		// the heap. WARNING! Heap might cease to be heapsorted. Heapsort call is advised. 
+
+		if (heap[indices[pos]] != null) {
+			heap[indices[pos]] = key;
+		}
+	}
+
+	public int removeMin() {
+		// Deletes and returns the index of the key with the minimum value.
+
+		size--;
+		int index = indices[0];
+		exch(0, size);
+		heap[size] = null;
+		sink(0);
+		return index;
+	}
+
 	public void print() {
-		for (int i = 0; i < size; i++) {
+		// Prints the heap in the console in height order.
+
+		for (int i = 0; i < firstSize; i++) {
 			System.out.println(heap[i]);
 		}
 	}
 
 	public void heapSort() {
+		// Heapsorts the heap.
+
 		int temp = size / 2 - 1;
 		for (int i = temp; i >= 0; i--) {
 			sink(i);
@@ -74,6 +101,9 @@ public class GreedyHeap<Key extends Comparable<Key>> {
 	public static void main(String[] args) {
 		Double dist[] = {3.2, 4.5, 1.1, 7.7, 3.6};
 		GreedyHeap<Double> heap = new GreedyHeap<Double>(dist);
+		heap.removeMin();
+		//heap.removeMin();
+		heap.updateKey(2, 8.2);
 		heap.print();
 	}
 }
