@@ -1,8 +1,6 @@
 // Heap like data structure that makes a copy of an array to be heapsorted.
 // It gives the option to alterate any values in the heap in constant time.
 // This is a custom data structure suitale for Dijkstra's algorithm.
-// Warning: If a value is altered, probably the heap won't be heapsorted anymore.
-// Therefore after the completion of the alterations heapsort is advised.
 
 public class GreedyHeap<Key extends Comparable<Key>> {
 
@@ -25,13 +23,27 @@ public class GreedyHeap<Key extends Comparable<Key>> {
 		heapSort();
 	}
 
+	public boolean isEmpty() {
+		// Return true iff all elements of heap are of null value.
+
+		return size == 0;
+	}
+
 	public void updateKey(int pos, Key key) {
 		// Update a position of the input array with a given key. It updates
-		// the heap. WARNING! Heap might cease to be heapsorted. Heapsort call is advised. 
+		// the heap.
 
 		if (heap[indices[pos]] != null) {
 			heap[indices[pos]] = key;
 		}
+		swim(indices[pos]);
+		sink(indices[pos]);
+	}
+
+	public Key getKey(int pos) {
+		// Return the key in the specific pos(ition).
+
+		return heap[indices[pos]];
 	}
 
 	public int removeMin() {
@@ -76,6 +88,19 @@ public class GreedyHeap<Key extends Comparable<Key>> {
 		}
 	}
 
+	private void swim(int pos) {
+		int temp = pos + 1;
+		while (temp > 1) {
+			if (less(heap[temp-1], heap[temp/2 - 1])) {
+				exch(temp-1, temp/2 - 1);
+				temp /= 2;
+			}
+			else {
+				break;
+			}
+		}
+	}
+
 	private int minIndex(int i, int j) {
 		if (i == size) {return j;}
 		if (j == size) {return i;}
@@ -96,14 +121,5 @@ public class GreedyHeap<Key extends Comparable<Key>> {
 		int swap2 = indices[i];
 		indices[i] = indices[j];
 		indices[j] = swap2;
-	}
-
-	public static void main(String[] args) {
-		Double dist[] = {3.2, 4.5, 1.1, 7.7, 3.6};
-		GreedyHeap<Double> heap = new GreedyHeap<Double>(dist);
-		heap.removeMin();
-		//heap.removeMin();
-		heap.updateKey(2, 8.2);
-		heap.print();
 	}
 }
